@@ -1,0 +1,72 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 10px;
+    background-color: #333; 
+  }
+  
+  .signin-bg {
+    background-color: #333;
+  }
+  
+  .signup-bg {
+    background-color: #fff;
+  }
+  
+  .form-card {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .signup-bg .form-card {
+    background-color: #333;
+    color: white;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .signup-bg input {
+    background-color: white;
+    color: black;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    background-color: #6a4ca7;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background-color: #5c3d99;
+  }
+  
