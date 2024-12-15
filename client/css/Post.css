@@ -13,7 +13,7 @@ body {
     justify-content: space-between;
     padding: 0.8rem;
   }
-  .card-body{
+  .like-comment{
     display: flex;
     justify-content: space-around;
   }
