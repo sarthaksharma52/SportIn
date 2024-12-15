@@ -1,0 +1,19 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  .cardFrame{
+    width: 40vw;
+    margin-top: 5vh;
+  }
+  .userDetail{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.8rem;
+  }
+  .card-body{
+    display: flex;
+    justify-content: space-around;
+  }

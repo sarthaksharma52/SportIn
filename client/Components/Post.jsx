@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import '../css/Post.css'
 
-const Post = () => {
+const Post = ({post}) => {
+  const[like,SetLike] = useState(0);
+
+  const likefn= () => {
+    SetLike(like+1);
+  }
+
   return (
-    <div>
-      <div className="card" style={{ width: "18rem" }}>
-        <img src="..." className="card-img-top" alt="..." />
+    <>
+      <div className="card cardFrame">
+        <div className='userDetail'>
+          <img src="post.userProfile" alt="user profile picture" />
+          <h6>post.userName</h6>
+        </div>
+        <hr />
+        <img src="post.userPostImg" className="card-img-top" alt="user uploded img" />
+        <hr />
         <div className="card-body">
           <h5 className="card-title">Card title</h5>
           <p className="card-text">
@@ -13,18 +26,18 @@ const Post = () => {
           </p>
         </div>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">An item</li>
+          <li className="list-group-item">{like} like</li>
         </ul>
         <div className="card-body">
-          <button><a href="#" className="card-link">
+          <button onClick={likefn}>
             like
-          </a></button>
-          <button><a href="#" className="card-link">
+          </button>
+          <button className="card-link">
             comment
-          </a></button>
+          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

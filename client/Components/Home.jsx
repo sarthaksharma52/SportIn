@@ -1,10 +1,10 @@
 import React from 'react'
 import Post from './Post'
+import '../css/Home.css'
 
 function Home() {
   return (
-    <div>
-      home
+    <div className='home'>
       <Post/>
     </div>
   )
