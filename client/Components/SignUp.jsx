@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../css/Signup.css';
 
 const SignUp = ({Data}) => {
@@ -16,10 +17,14 @@ const SignUp = ({Data}) => {
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    Data(formData);
-    // console.log('Form Data Submitted:', formData);
+    try{
+      const response = await axios.post('hhtp://localhost:3000/signup' , formData);
+      console.log(response.data.message);
+    }catch(error){
+      console.log(error.response?.Data?.error || "Signup Failed");
+    }
   };
 
   return (

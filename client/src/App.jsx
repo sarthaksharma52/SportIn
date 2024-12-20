@@ -16,8 +16,8 @@ function App() {
 
 
   //  just for check data is travel through props or not in app.jsx from signup.jsx
-  // const [shareData,setShareData] = useState("");
-  // console.log(shareData);
+  const [shareData,setShareData] = useState("");
+  console.log(shareData);
 
   return (
     <>
