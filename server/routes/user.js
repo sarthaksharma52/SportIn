@@ -34,7 +34,31 @@ router.post('/signup' , async (req,res)=>{
 
 router.post('/signin' , async (req,res)=>{
 
-    const { email , password } = req.body;
+    try{
 
-    
-})
+        const { email , password } = req.body;
+
+        // check user is already signup or not || user is exist or not
+        const user = await User.findOne({email});
+        if(!user) return res.status(404).json({error:"user not found"});
+
+        // verify password 
+
+        const passwordValid = await bcrypt.compare(password, user.password);
+        if(!passwordValid) return res.status(404).json({ error: "password is wrong"});
+
+        // creating jwt tokens
+
+        const jwtSecret = process.env.JWT_SECRET_KEY;
+        const token = jwt.sign({id:user._id}, jwtSecret , {expiresIn: '1hr'});
+
+        res.status(200).json({message: "user login successfully" , token });
+    }
+    catch(error){
+
+        res.status(500).json({error: "signin failed"});
+
+    }
+});
+
+module.exports = router;

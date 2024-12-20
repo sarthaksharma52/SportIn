@@ -20,10 +20,10 @@ const SignUp = ({Data}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const response = await axios.post('hhtp://localhost:3000/signup' , formData);
+      const response = await axios.post('http://localhost:3000/api/signup' , formData);
       console.log(response.data.message);
     }catch(error){
-      console.log(error.response?.Data?.error || "Signup Failed");
+      console.log(error.response?.data?.error || "Signup Failed");
     }
   };
 
