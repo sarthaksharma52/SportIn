@@ -23,7 +23,7 @@ function App() {
     <>
             <Navbar />
             <Routes>
-                <Route path="/" element={<SignUp />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/MyNetwork" element={<MyNetwork />} />
                 <Route path="/jobs" element={<Jobs />} />
                 <Route path="/messaging" element={<Messaging />} />
