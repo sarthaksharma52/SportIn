@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Auth.css';
 
@@ -11,6 +12,8 @@ const SignIn = () => {
     }
   );
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
@@ -22,6 +25,7 @@ const SignIn = () => {
       const response = await axios.post('http://localhost:3000/api/signin', formData);
       console.log(response.data.message);
       localStorage.setItem('token' , response.data.token);
+      navigate('/');
     }catch(error){
       console.log(error.response?.data?.message || "Signin Failed");
     }
