@@ -21,7 +21,6 @@ router.post('/signup', async (req, res) => {
 
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
-        console.error("Signup error:", error);
         res.status(500).json({ error: 'Failed to create user' });
     }
 });
@@ -30,17 +29,13 @@ router.post('/signup', async (req, res) => {
 router.post('/signin', async (req, res) => {
     try {
         const { email, password } = req.body;
-        console.log("Incoming request: POST /api/signin");
-        console.log("Login attempt:", email);
+        
 
         const user = await User.findOne({ email });
         if (!user) {
             console.log("User not found");
             return res.status(404).json({ error: "User not found" });
         }
-
-        console.log("Stored hash:", user.password);
-        console.log("Entered password:", password);
 
         // Use `matchPassword` method from User model
         const passwordValid = await user.matchPassword(password);

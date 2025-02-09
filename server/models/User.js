@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,  
-        required: false,  // Make phone optional  
+        required: false, 
     },
     password: {
         type: String,

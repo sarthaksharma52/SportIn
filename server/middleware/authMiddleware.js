@@ -3,14 +3,12 @@ const jwt = require('jsonwebtoken');
 const authMiddleware = (req, res, next) => {
     try {
         const authHeader = req.header("Authorization");
-        console.log("Auth Header:", authHeader); // Debugging
 
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             return res.status(401).json({ error: "Access Denied! Token Missing or Invalid Format" });
         }
 
         const token = authHeader.split(" ")[1];
-        console.log("Extracted Token:", token); // Debugging
 
         const jwtSecret = process.env.JWT_SECRET_KEY;
         if (!jwtSecret) {
@@ -19,7 +17,6 @@ const authMiddleware = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, jwtSecret);
-        console.log("Decoded Token:", decoded); // Debugging
 
         req.user = decoded;
         next(); // Proceed to the next middleware
