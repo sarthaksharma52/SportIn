@@ -14,27 +14,23 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        // match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.'], // Basic email validation
+        match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.'],
     },
     phone: {
-        type: String,
-        unique: true,
+        type: String,  
+        required: false,  // Make phone optional  
     },
     password: {
         type: String,
         required: true,
-        minlength: 6, // Minimum length for the password
     },
-}, {
-    timestamps: true,
-});
+}, { timestamps: true });
 
-userSchema.pre('save', async function(next) {
-
+// Hash the password before saving the user
+userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
 
     try {
-        // Generate a salt and hash the password
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
         next();
@@ -43,7 +39,8 @@ userSchema.pre('save', async function(next) {
     }
 });
 
-userSchema.methods.matchPassword = async function(enteredPassword) {
+// Method to compare passwords
+userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 

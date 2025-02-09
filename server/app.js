@@ -4,33 +4,63 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-let port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
+// Import Routes
 const userroutes = require("./routes/user");
 
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Enable CORS for all routes
-app.use(cors()); // Allows all origins during development
-
-app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? 'https://your-production-domain.com' : 'http://localhost:5173'
+// CORS Configuration
+app.use(cors({ 
+    origin: ['http://localhost:5173', 'https://your-production-domain.com'], 
+    credentials: true 
 }));
 
-const startServer = async () => {
+// **Logging Middleware (Placed before routes to log all requests)**
+app.use((req, res, next) => {
+    console.log(`Incoming request: ${req.method} ${req.originalUrl}`);
+    next();
+});
+
+// **Mongoose Connection**
+mongoose.set("strictQuery", false);
+const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URL);
-        console.log("mongodbConnected");
+        if (!process.env.MONGO_URL) {
+            throw new Error("MONGO_URL is not defined in .env");
+        }
 
-        app.use('/api', userroutes);
-
-        app.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
+        await mongoose.connect(process.env.MONGO_URL, { 
+            useNewUrlParser: true, 
+            useUnifiedTopology: true 
         });
 
+        console.log("✅ MongoDB Connected");
     } catch (error) {
-        console.log('mongodb connection error:', error);
+        console.error(" MongoDB connection error:", error);
+        setTimeout(connectDB, 5000); // Retry connection every 5 seconds
     }
+};
+
+// **Start Server**
+const startServer = async () => {
+    await connectDB(); // Connect to MongoDB
+
+    // User routes
+    app.use('/api', userroutes);
+
+    // Global Error Handling Middleware
+    app.use((err, req, res, next) => {
+        console.error("Server Error:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    });
+
+    app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+    });
 };
 
 startServer();
