@@ -38,7 +38,7 @@ const SignIn = () => {
 
       console.log(message || "Sign in successful");
 
-      // ✅ Call handleLogin to store data and refresh navbar
+      // Call handleLogin to store data and refresh navbar
       handleLogin(name, token);
     } catch (error) {
       setError(error.response?.data?.error || "Sign in failed. Please try again.");

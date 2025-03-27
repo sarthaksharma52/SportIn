@@ -60,7 +60,7 @@ router.post('/signin', async (req, res) => {
             name: user.name
           });
           
-        localStorage.setItem("name", user.name);
+        // localStorage.setItem("name", user.name);
         // console.log(name)
         // return res.json({"name": name});
     } catch (error) {
