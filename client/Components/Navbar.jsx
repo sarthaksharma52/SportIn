@@ -33,6 +33,9 @@ function Navbar() {
             <NavLink className="nav-link" to="/MyNetwork">My Network</NavLink>
           </li>
           <li className="nav-item">
+            <NavLink className="nav-link" to="/post">Posts</NavLink>
+          </li>
+          <li className="nav-item">
             <NavLink className="nav-link" to="/jobs">Jobs</NavLink>
           </li>
           <li className="nav-item">

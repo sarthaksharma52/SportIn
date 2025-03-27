@@ -7,7 +7,7 @@ import Jobs from '../Components/Jobs';
 import Messaging from '../Components/Messaging';
 import Notification from '../Components/Notification';
 import Profile from '../Components/Profile';
-// import Post from '../Components/Post';
+import Post from '../Components/CreatePost';
 import SignUp from '../Components/SignUp';
 import SignIn from '../Components/SignIn';
 import { useState } from 'react';
@@ -25,6 +25,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/MyNetwork" element={<MyNetwork />} />
+                <Route path="/post" element={<Post />} />
                 <Route path="/jobs" element={<Jobs />} />
                 <Route path="/messaging" element={<Messaging />} />
                 <Route path="/notification" element={<Notification />} />
