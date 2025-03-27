@@ -12,6 +12,17 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const handleLogin = (userName, token) => {
+    localStorage.setItem("name", userName);
+    localStorage.setItem("token", token);
+
+    // Trigger navbar update event
+    window.dispatchEvent(new Event("loginStatusChange"));
+    
+    // Navigate to home page
+    navigate('/');
+  };
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
@@ -23,13 +34,12 @@ const SignIn = () => {
     
     try {
       const response = await axios.post('http://localhost:3000/api/signin', formData);
-      const { token, message } = response.data;
-
-      // Store token properly
-      localStorage.setItem('token', token);
+      const { token, name, message } = response.data;
 
       console.log(message || "Sign in successful");
-      navigate('/');
+
+      // ✅ Call handleLogin to store data and refresh navbar
+      handleLogin(name, token);
     } catch (error) {
       setError(error.response?.data?.error || "Sign in failed. Please try again.");
     }
