@@ -28,4 +28,22 @@ body {
       background-color: #ffffff;
     }
   }
+  .navbar {
+    background-color: #f8f9fa !important; /* Lighter white shade */
+    border-bottom: 1px solid #ddd; /* Light border for subtle separation */
+  }
+  
+  .navbar-brand, .nav-link, .dropdown-item {
+    color: #333 !important; /* Slightly darker text for readability */
+  }
+  
+  .navbar-nav .nav-link:hover, .dropdown-item:hover {
+    background-color: #e9ecef; /* Light hover effect */
+  }
+  
+  .search {
+    background-color: #ffffff; /* White background for search */
+    border: 1px solid #ccc;
+    color: #333;
+  }
   

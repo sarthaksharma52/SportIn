@@ -1,9 +1,10 @@
 import React from 'react'
+import PostForm from './PostForm'
 
 const CreatePost = () => {
   return (
     <div>
-      posts
+      <PostForm/>
     </div>
   )
 }
