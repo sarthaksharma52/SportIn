@@ -8,17 +8,24 @@ const Post = ({ post, onDelete, currentUserId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser && storedUser._id) {
       setLocalUserId(storedUser._id);
     }
+    
+    const handleResize = () => setIsMobile(window.innerWidth <= 600);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/posts/${post._id}/comments`);
+      const response = await axios.get(
+        `http://localhost:3000/api/posts/${post._id}/comments`
+      );
       setComments(response.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -28,9 +35,13 @@ const Post = ({ post, onDelete, currentUserId }) => {
   const handleLike = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.post(`http://localhost:3000/api/posts/${post._id}/like`, {}, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.post(
+        `http://localhost:3000/api/posts/${post._id}/like`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setLikes((prevLikes) => (liked ? prevLikes - 1 : prevLikes + 1));
       setLiked(!liked);
     } catch (error) {
@@ -43,9 +54,13 @@ const Post = ({ post, onDelete, currentUserId }) => {
     if (!newComment.trim()) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.post(`http://localhost:3000/api/posts/${post._id}/comment`, { comment: newComment }, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.post(
+        `http://localhost:3000/api/posts/${post._id}/comment`,
+        { comment: newComment },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setNewComment("");
       fetchComments();
     } catch (error) {
@@ -58,26 +73,39 @@ const Post = ({ post, onDelete, currentUserId }) => {
     setShowComments(!showComments);
   };
 
+  // Define comment popup style based on screen size:
+  const commentPopupStyle = isMobile
+    ? { ...styles.commentPopup, position: "static", marginTop: "10px" }
+    : styles.commentPopup;
+
   return (
     <div style={styles.postContainer}>
       <div style={styles.postCard}>
         <h3 style={styles.username}>{post.user?.name || "Anonymous"}</h3>
         <img src={post.imageUrl} alt="Post" style={styles.image} />
         <p style={styles.description}>{post.description}</p>
-
         <div style={styles.actions}>
           <button style={styles.likeButton} onClick={handleLike}>
             {liked ? "❤️" : "🤍"} {likes}
           </button>
-          <button style={styles.commentButton} onClick={toggleComments}>💬 Comment</button>
-          {localUserId && post.user && post.user._id === localUserId && (
-            <button style={styles.deleteButton} onClick={() => onDelete(post._id)}>🗑️ Delete</button>
-          )}
+          <button style={styles.commentButton} onClick={toggleComments}>
+            💬 Comment
+          </button>
+          {localUserId &&
+            post.user &&
+            post.user._id.toString() === localUserId.toString() && (
+              <button
+                style={styles.deleteButton}
+                onClick={() => onDelete(post._id)}
+              >
+                🗑️ Delete
+              </button>
+            )}
         </div>
       </div>
 
       {showComments && (
-        <div style={styles.commentPopup}>
+        <div style={commentPopupStyle}>
           <h4>Comments</h4>
           <div style={styles.commentList}>
             {comments.length > 0 ? (
@@ -98,7 +126,9 @@ const Post = ({ post, onDelete, currentUserId }) => {
               placeholder="Write a comment..."
               style={styles.commentInput}
             />
-            <button type="submit" style={styles.submitCommentButton}>Post</button>
+            <button type="submit" style={styles.submitCommentButton}>
+              Post
+            </button>
           </form>
         </div>
       )}
@@ -112,9 +142,13 @@ const styles = {
     display: "flex",
     gap: "20px",
     alignItems: "flex-start",
+    flexDirection: "row",
+    width: "100%",
+    maxWidth: "600px",
+    margin: "0 auto 20px",
   },
   postCard: {
-    width: "500px",
+    flex: 1,
     border: "1px solid #ddd",
     borderRadius: "10px",
     padding: "10px",
@@ -128,8 +162,8 @@ const styles = {
   },
   image: {
     width: "100%",
-    maxHeight: "60vh",
-    objectFit: "cover",
+    maxHeight: "40vh", // Reduced maximum height to 40vh as requested
+    objectFit: "contain", // Ensures the whole image is visible\n    borderRadius: "10px",
     borderRadius: "10px",
   },
   description: {
@@ -166,7 +200,7 @@ const styles = {
     cursor: "pointer",
   },
   commentPopup: {
-    position: "absolute",
+    // For larger screens, position popup to the right of post\n    position: "absolute",
     top: "0",
     right: "-320px",
     width: "300px",

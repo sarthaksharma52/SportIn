@@ -51,13 +51,13 @@ const PostList = () => {
 const styles = {
   container: {
     display: "flex",
-    flexDirection: "column",   // Stack posts vertically
-    alignItems: "center",      // Center them horizontally
-    marginTop: "80px",         // Extra margin to push posts below the navbar
-    gap: "20px",               // Space between posts
+    flexDirection: "column",   
+    alignItems: "center",      
+    marginTop: "2vh",         
+    gap: "2vh",         
     width: "100%",
-    maxWidth: "600px",         // Limit feed width for a centered look
-    margin: "80px auto 20px",  // Top margin 80px, auto side margins, bottom margin 20px
+    maxWidth: "600px",         
+    margin: "3vh auto 1vh",  
   },
 };
 
