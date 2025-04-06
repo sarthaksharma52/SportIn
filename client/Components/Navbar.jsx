@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import '../css/Navbar.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function Navbar() {
+  const navigate = useNavigate();
   const formatName = (name) => {
     if (!name) return null;
     return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
@@ -30,6 +31,7 @@ function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
     setName(null);
+    navigate('/signin');
 
     window.dispatchEvent(new Event("loginStatusChange"));
   };
@@ -68,7 +70,7 @@ function Navbar() {
           )}
 
           <li className="nav-item">
-            <NavLink className="nav-link" to="/jobs">Jobs</NavLink>
+            <NavLink className="nav-link" to="/news">News</NavLink>
           </li>
           <li className="nav-item">
             <NavLink className="nav-link" to="/notification">Notification</NavLink>

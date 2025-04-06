@@ -19,27 +19,27 @@ const PostForm = () => {
     e.preventDefault();
     if (loading) return;
     if (!image) return toast.error("Please select an image");
-  
+
     const token = localStorage.getItem("token"); // Fetch token from localStorage
     if (!token) {
       return toast.error("You must be logged in to create a post");
     }
-  
+
     const formData = new FormData();
     formData.append("image", image);
     formData.append("description", description);
-  
+
     setLoading(true);
     try {
       const res = await axios.post("http://localhost:3000/api/posts", formData, {
-        headers: { 
+        headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}` // Send token here
+          Authorization: `Bearer ${token}`, // Send token here
         },
       });
       toast.success("Post created successfully!");
       console.log(res.data);
-  
+
       setDescription("");
       setImage(null);
       setPreview(null);
@@ -50,7 +50,6 @@ const PostForm = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <div style={styles.container}>
@@ -73,6 +72,13 @@ const PostForm = () => {
           onChange={(e) => setDescription(e.target.value)}
           style={styles.textarea}
         />
+
+        {/* Live description preview with formatting preserved */}
+        {description && (
+          <div style={styles.descriptionPreview}>
+            {description}
+          </div>
+        )}
 
         <button type="submit" style={styles.button} disabled={loading}>
           {loading ? "Uploading..." : "Upload Post"}
@@ -122,6 +128,16 @@ const styles = {
     border: "1px solid #ccc",
     minHeight: "80px",
     resize: "none",
+  },
+  descriptionPreview: {
+    whiteSpace: "pre-wrap", // 🔥 this preserves spacing and line breaks
+    textAlign: "left",
+    border: "1px dashed #ccc",
+    backgroundColor: "#f9f9f9",
+    padding: "10px",
+    borderRadius: "5px",
+    fontSize: "14px",
+    color: "#333",
   },
   button: {
     padding: "10px",

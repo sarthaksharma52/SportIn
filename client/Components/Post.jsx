@@ -10,12 +10,17 @@ const Post = ({ post, onDelete, currentUserId }) => {
   const [showComments, setShowComments] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 
+  // Helper function to format the username
+  const formatUsername = (name) => {
+    if (!name) return "Anonymous";
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  };
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser && storedUser._id) {
       setLocalUserId(storedUser._id);
     }
-    
     const handleResize = () => setIsMobile(window.innerWidth <= 600);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -73,7 +78,7 @@ const Post = ({ post, onDelete, currentUserId }) => {
     setShowComments(!showComments);
   };
 
-  // Define comment popup style based on screen size:
+  // Adjust comment popup style for mobile vs. desktop
   const commentPopupStyle = isMobile
     ? { ...styles.commentPopup, position: "static", marginTop: "10px" }
     : styles.commentPopup;
@@ -81,8 +86,9 @@ const Post = ({ post, onDelete, currentUserId }) => {
   return (
     <div style={styles.postContainer}>
       <div style={styles.postCard}>
-        <h3 style={styles.username}>{post.user?.name || "Anonymous"}</h3>
+        <h3 style={styles.username}>{formatUsername(post.user?.name)}</h3>
         <img src={post.imageUrl} alt="Post" style={styles.image} />
+        {/* Using whiteSpace: "pre-line" to maintain only line breaks */}
         <p style={styles.description}>{post.description}</p>
         <div style={styles.actions}>
           <button style={styles.likeButton} onClick={handleLike}>
@@ -111,7 +117,7 @@ const Post = ({ post, onDelete, currentUserId }) => {
             {comments.length > 0 ? (
               comments.map((c) => (
                 <p key={c._id} style={styles.commentItem}>
-                  <strong>{c.user?.name || "Anonymous"}:</strong> {c.comment}
+                  <strong>{formatUsername(c.user?.name)}</strong>: {c.comment}
                 </p>
               ))
             ) : (
@@ -162,13 +168,15 @@ const styles = {
   },
   image: {
     width: "100%",
-    maxHeight: "40vh", // Reduced maximum height to 40vh as requested
-    objectFit: "contain", // Ensures the whole image is visible\n    borderRadius: "10px",
+    maxHeight: "40vh",
+    objectFit: "contain",
     borderRadius: "10px",
   },
+  // Updated description style to maintain line breaks (newlines) only
   description: {
     marginTop: "10px",
     fontSize: "16px",
+    whiteSpace: "pre-line",
   },
   actions: {
     display: "flex",
@@ -200,7 +208,7 @@ const styles = {
     cursor: "pointer",
   },
   commentPopup: {
-    // For larger screens, position popup to the right of post\n    position: "absolute",
+    position: "absolute",
     top: "0",
     right: "-320px",
     width: "300px",
