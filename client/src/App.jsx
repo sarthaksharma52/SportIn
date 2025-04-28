@@ -2,7 +2,6 @@ import './App.css'
 import Navbar from '../Components/Navbar'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../Components/Home';
-import MyNetwork from '../Components/MyNetwork';
 import News from '../Components/News';
 import Messaging from '../Components/Messaging';
 import Notification from '../Components/Notification';
@@ -10,6 +9,7 @@ import Profile from '../Components/Profile';
 import Post from '../Components/CreatePost';
 import SignUp from '../Components/SignUp';
 import SignIn from '../Components/SignIn';
+import Jobs from '../Components/Jobs'
 import { useState } from 'react';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/MyNetwork" element={<MyNetwork />} />
+                <Route path="/jobs" element={<Jobs />} />
                 <Route path="/post" element={<Post />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/messaging" element={<Messaging />} />

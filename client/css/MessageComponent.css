@@ -1,0 +1,32 @@
+.message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .message-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .coming-soon-text {
+    font-size: 1.2rem;
+    color: #f39c12;
+    font-weight: bold;
+  }
+  

@@ -58,7 +58,7 @@ function Navbar() {
           {isLoggedIn && (
             <>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/MyNetwork">My Network</NavLink>
+                <NavLink className="nav-link" to="/Jobs">Jobs</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/post">Posts</NavLink>
@@ -72,9 +72,9 @@ function Navbar() {
           <li className="nav-item">
             <NavLink className="nav-link" to="/news">News</NavLink>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <NavLink className="nav-link" to="/notification">Notification</NavLink>
-          </li>
+          </li> */}
 
           <li className="nav-item dropdown">
             <a 
