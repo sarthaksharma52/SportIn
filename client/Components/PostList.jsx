@@ -11,7 +11,7 @@ const PostList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/posts");
+        const res = await axios.get("https://sportin.onrender.com/api/posts");
         setPosts(res.data);
       } catch (err) {
         setError("Failed to fetch posts");

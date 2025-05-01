@@ -31,7 +31,7 @@ const PostForm = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/api/posts", formData, {
+      const res = await axios.post("https://sportin.onrender.com/api/posts", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`, // Send token here

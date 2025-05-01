@@ -23,7 +23,7 @@ const SignUp = ({Data}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const response = await axios.post('http://localhost:3000/api/signup' , formData);
+      const response = await axios.post('https://sportin.onrender.com/api/signup' , formData);
       console.log(response.data.message);
       navigate('/signin');
     }catch(error){

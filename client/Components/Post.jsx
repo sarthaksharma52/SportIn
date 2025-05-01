@@ -29,7 +29,7 @@ const Post = ({ post, onDelete, currentUserId }) => {
   const fetchComments = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/posts/${post._id}/comments`
+        `https://sportin.onrender.com/api/posts/${post._id}/comments`
       );
       setComments(response.data);
     } catch (error) {
@@ -41,7 +41,7 @@ const Post = ({ post, onDelete, currentUserId }) => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:3000/api/posts/${post._id}/like`,
+        `https://sportin.onrender.com/api/posts/${post._id}/like`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -60,7 +60,7 @@ const Post = ({ post, onDelete, currentUserId }) => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:3000/api/posts/${post._id}/comment`,
+        `https://sportin.onrender.com/api/posts/${post._id}/comment`,
         { comment: newComment },
         {
           headers: { Authorization: `Bearer ${token}` },
