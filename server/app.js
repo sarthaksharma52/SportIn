@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS Configuration
 app.use(cors({ 
-  origin: ["http://localhost:5173", "https://your-production-domain.com"], 
+  origin: ["https://sportin-sx9a.onrender.com", "https://your-production-domain.com"], 
   credentials: true 
 }));
 
