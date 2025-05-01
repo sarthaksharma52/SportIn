@@ -44,95 +44,131 @@ const Profile = ({ userId }) => {
   };
 
   return (
-    <div style={{ padding: "1rem", maxWidth: "600px", margin: "auto" }}>
+    <div className="container py-4">
       {editing ? (
-        <form onSubmit={handleSubmit}>
-          <h2>Edit Profile</h2>
+        <form onSubmit={handleSubmit} className="card p-4 shadow">
+          <h2 className="mb-4">Edit Profile</h2>
 
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={profile.name}
-            onChange={(e) =>
-              setProfile({ ...profile, name: e.target.value })
-            }
-            required
-          />
+          <div className="mb-3">
+            <label className="form-label">Name</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Your Name"
+              value={profile.name}
+              onChange={(e) =>
+                setProfile({ ...profile, name: e.target.value })
+              }
+              required
+            />
+          </div>
 
-          <textarea
-            placeholder="A short description about you"
-            value={profile.description}
-            onChange={(e) =>
-              setProfile({ ...profile, description: e.target.value })
-            }
-            required
-          />
+          <div className="mb-3">
+            <label className="form-label">Description</label>
+            <textarea
+              className="form-control"
+              rows="3"
+              placeholder="A short description about you"
+              value={profile.description}
+              onChange={(e) =>
+                setProfile({ ...profile, description: e.target.value })
+              }
+              required
+            />
+          </div>
 
-          <input
-            type="text"
-            placeholder="Skills (comma separated)"
-            onChange={(e) =>
-              setProfile({ ...profile, skills: e.target.value.split(",") })
-            }
-            required
-          />
+          <div className="mb-3">
+            <label className="form-label">Skills</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Skills (comma separated)"
+              onChange={(e) =>
+                setProfile({ ...profile, skills: e.target.value.split(",") })
+              }
+              required
+            />
+          </div>
 
-          <h3>Education</h3>
+          <h4 className="mt-4">Education</h4>
           {profile.education.map((edu, idx) => (
-            <div
-              key={idx}
-              style={{ border: "1px solid #ccc", padding: "0.5rem", marginBottom: "0.5rem" }}
-            >
-              <input
-                type="text"
-                placeholder="School Name"
-                value={edu.schoolName}
-                onChange={(e) => updateEdu(idx, "schoolName", e.target.value)}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Course Year"
-                value={edu.courseYear}
-                onChange={(e) => updateEdu(idx, "courseYear", e.target.value)}
-                required
-              />
-              <input
-                type="date"
-                value={edu.startDate}
-                onChange={(e) => updateEdu(idx, "startDate", e.target.value)}
-                required
-              />
-              <input
-                type="date"
-                value={edu.endDate}
-                onChange={(e) => updateEdu(idx, "endDate", e.target.value)}
-                required
-              />
+            <div key={idx} className="border rounded p-3 mb-3 bg-light">
+              <div className="mb-2">
+                <label className="form-label">School Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="School Name"
+                  value={edu.schoolName}
+                  onChange={(e) => updateEdu(idx, "schoolName", e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-2">
+                <label className="form-label">Course Year</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Course Year"
+                  value={edu.courseYear}
+                  onChange={(e) => updateEdu(idx, "courseYear", e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-2">
+                <label className="form-label">Start Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  value={edu.startDate}
+                  onChange={(e) => updateEdu(idx, "startDate", e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-2">
+                <label className="form-label">End Date</label>
+                <input
+                  type="date"
+                  className="form-control"
+                  value={edu.endDate}
+                  onChange={(e) => updateEdu(idx, "endDate", e.target.value)}
+                  required
+                />
+              </div>
             </div>
           ))}
 
-          <button type="button" onClick={addEducationField}>
-            + Add Education
+          <div className="mb-3">
+            <button
+              type="button"
+              className="btn btn-outline-primary"
+              onClick={addEducationField}
+            >
+              + Add Education
+            </button>
+          </div>
+
+          <button type="submit" className="btn btn-primary">
+            Save Profile
           </button>
-          <br />
-          <button type="submit">Save Profile</button>
         </form>
       ) : (
-        <div>
+        <div className="card p-4 shadow">
           <h2>{profile.name}</h2>
           <p>{profile.description}</p>
 
-          <h3>Skills</h3>
-          <ul>
+          <h4 className="mt-4">Skills</h4>
+          <ul className="list-group mb-3">
             {profile.skills.map((skill, index) => (
-              <li key={index}>{skill.trim()}</li>
+              <li key={index} className="list-group-item">
+                {skill.trim()}
+              </li>
             ))}
           </ul>
 
-          <h3>Education</h3>
+          <h4>Education</h4>
           {profile.education.map((edu, idx) => (
-            <div key={idx} style={{ marginBottom: "1rem" }}>
+            <div key={idx} className="border rounded p-3 mb-3">
               <p><strong>School:</strong> {edu.schoolName}</p>
               <p><strong>Course Year:</strong> {edu.courseYear}</p>
               <p>
@@ -140,7 +176,13 @@ const Profile = ({ userId }) => {
               </p>
             </div>
           ))}
-          <button onClick={() => setEditing(true)}>Edit Profile</button>
+
+          <button
+            className="btn btn-secondary"
+            onClick={() => setEditing(true)}
+          >
+            Edit Profile
+          </button>
         </div>
       )}
     </div>
