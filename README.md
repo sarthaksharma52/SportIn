@@ -11,7 +11,7 @@
 - **Networking**: Connect with other sports enthusiasts and professionals.
 
 ## Technologies Used
-
+ 
 - **Frontend**: React.js
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
