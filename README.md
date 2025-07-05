@@ -5,7 +5,7 @@
 ## Features
 
 - **Profile Creation**: Users can create personalized profiles showcasing their achievements, skills, and preferences.
-- **Academy Connections**: Sports academies can connect with athletes and manage their networks.
+- **Academy Connections**: Sports academies can connect with athletes and manage their networks. 
 - **Trial Notifications**: Stay informed about the latest trials and recruitment opportunities.
 - **News Feed**: Get the latest updates and announcements in the sports world.
 - **Networking**: Connect with other sports enthusiasts and professionals.
